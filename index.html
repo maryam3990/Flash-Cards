@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>SAVEME</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400..700&family=Fraunces:opsz,wght@9..144,400..800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="app">
+  <aside class="rail">
+    <div class="brand">SAVEME</div>
+    <nav aria-label="Subjects"><ul class="folders" id="folders"></ul></nav>
+  </aside>
+
+  <main class="main">
+    <header class="top">
+      <div>
+        <h1 id="viewTitle"></h1>
+        <p class="meta" id="viewMeta"></p>
+      </div>
+      <div class="seg" role="group" aria-label="View">
+        <button data-act="view" data-id="study" aria-pressed="true">Study</button>
+        <button data-act="view" data-id="grid" aria-pressed="false">All cards</button>
+      </div>
+    </header>
+
+    <div class="toolbar">
+      <label class="size" for="size">
+        <span>Text size</span>
+        <span class="a a-s" aria-hidden="true">A</span>
+        <input id="size" type="range" min="16" max="44" step="2" value="28">
+        <span class="a a-l" aria-hidden="true">A</span>
+        <output id="sizeOut" for="size">28 px</output>
+      </label>
+      <div class="gridtools" id="gridTools" hidden>
+        <input id="search" class="search" type="search" placeholder="Search cards" aria-label="Search cards">
+        <button class="btn quiet" id="revealAll" data-act="reveal-all">Show all answers</button>
+      </div>
+      <button class="btn primary push" id="newCard" data-act="new-card"></button>
+    </div>
+
+    <section id="stage"></section>
+  </main>
+</div>
+
+<dialog id="cardDlg" aria-labelledby="cardTitle">
+  <div class="dlg">
+    <h2 id="cardTitle">New card</h2>
+    <label class="field"><span>Subject</span><select id="cFolder"></select></label>
+    <label class="field"><span>Front</span><textarea id="cFront" rows="3" placeholder="A question, term, or prompt"></textarea></label>
+    <label class="field"><span>Back</span><textarea id="cBack" rows="4" placeholder="The answer or definition"></textarea></label>
+    <p class="err" id="cErr" role="alert" hidden>Fill in both the front and the back.</p>
+    <div class="dlg-actions">
+      <button class="btn quiet" data-close>Cancel</button>
+      <span class="spacer"></span>
+      <button class="btn quiet" id="saveAnother" data-act="save-another">Save and add another</button>
+      <button class="btn primary" data-act="save-card">Save card</button>
+    </div>
+  </div>
+</dialog>
+
+<dialog id="folderDlg" aria-labelledby="fTitle">
+  <div class="dlg">
+    <h2 id="fTitle">New subject</h2>
+    <p class="note" id="fNote" hidden>Cards live inside subjects, so create one first.</p>
+    <label class="field"><span>Name</span><input id="fName" type="text" maxlength="40" placeholder="Biology, History, Arabic" autocomplete="off"></label>
+    <div class="field">
+      <span id="swLabel">Color</span>
+      <div class="swatches" id="swatches" role="radiogroup" aria-labelledby="swLabel"></div>
+    </div>
+    <p class="err" id="fErr" role="alert" hidden>Give the subject a name.</p>
+    <div class="dlg-actions">
+      <button class="btn quiet" data-close>Cancel</button>
+      <span class="spacer"></span>
+      <button class="btn primary" id="fSave" data-act="save-folder">Create subject</button>
+    </div>
+  </div>
+</dialog>
+
+<dialog id="confDlg" aria-labelledby="confTitle">
+  <div class="dlg">
+    <h2 id="confTitle"></h2>
+    <p class="note" id="confBody"></p>
+    <div class="dlg-actions">
+      <span class="spacer"></span>
+      <button class="btn quiet" data-close autofocus>Cancel</button>
+      <button class="btn primary" id="confOk" data-act="conf-ok">Delete</button>
+    </div>
+  </div>
+</dialog>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script src="script.js"></script>
+</body>
+</html>
